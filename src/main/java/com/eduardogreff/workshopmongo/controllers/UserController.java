@@ -1,5 +1,6 @@
 package com.eduardogreff.workshopmongo.controllers;
 
+import com.eduardogreff.workshopmongo.dto.UserDTO;
 import com.eduardogreff.workshopmongo.entities.User;
 import com.eduardogreff.workshopmongo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,8 @@ public class UserController {
     private UserService service;
 
     @GetMapping
-    public ResponseEntity<List<User>> findAll() {
-        return ResponseEntity.ok().body(service.findAll());
+    public ResponseEntity<List<UserDTO>> findAll() {
+        List<UserDTO> userDTOS = service.findAll().stream().map(user -> new UserDTO(user)).toList();
+        return ResponseEntity.ok().body(userDTOS);
     }
 }
