@@ -39,4 +39,12 @@ public class UserController {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> put(@PathVariable String id, @RequestBody UserDTO userDTO) {
+        User user = UserDTO.fromDTO(userDTO);
+        user.setId(id);
+        service.put(user);
+        return ResponseEntity.noContent().build();
+    }
 }
