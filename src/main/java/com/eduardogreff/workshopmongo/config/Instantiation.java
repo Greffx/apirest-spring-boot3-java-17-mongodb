@@ -1,6 +1,7 @@
 package com.eduardogreff.workshopmongo.config;
 
 import com.eduardogreff.workshopmongo.dto.AuthorDTO;
+import com.eduardogreff.workshopmongo.dto.CommentDTO;
 import com.eduardogreff.workshopmongo.entities.Post;
 import com.eduardogreff.workshopmongo.entities.User;
 import com.eduardogreff.workshopmongo.repository.PostRepository;
@@ -40,9 +41,16 @@ public class Instantiation {
         Post post1 = new Post(null, simpleDateFormat.parse("21/03/2018"), "Let's go trip", "Going to São Paulo, Brazil, kisses", new AuthorDTO(user1));
         Post post2 = new Post(null, simpleDateFormat.parse("23/03/2018"), "Good Morning", "Woke up happy, for some reason", new AuthorDTO(user1));
 
+        CommentDTO comment1 = new CommentDTO("Good trip bro", simpleDateFormat.parse("21/03/2018"), new AuthorDTO(user2));
+        CommentDTO comment2 = new CommentDTO("Enjoy", simpleDateFormat.parse("22/03/2018"), new AuthorDTO(user4));
+        CommentDTO comment3 = new CommentDTO("Have a great day", simpleDateFormat.parse("23/03/2018"), new AuthorDTO(user2));
+
+        post1.getComments().addAll(Arrays.asList(comment1, comment2));
+        post2.getComments().add(comment3);
+
         postRepository.saveAll(Arrays.asList(post1, post2));
 
-        user1.getPost().addAll(Arrays.asList(post1, post2));
+        user1.getPosts().addAll(Arrays.asList(post1, post2));
 
         userRepository.save(user1);
 
