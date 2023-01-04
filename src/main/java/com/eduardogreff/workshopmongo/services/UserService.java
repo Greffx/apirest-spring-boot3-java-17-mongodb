@@ -24,5 +24,7 @@ public class UserService {
         return user.orElseThrow(() -> new ObjectNotFoundException("Object not found."));
     }
 
-
+    public User insert(User user) {
+        return repository.insert(user);
+    }
 }

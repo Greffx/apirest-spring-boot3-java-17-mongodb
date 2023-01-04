@@ -1,13 +1,12 @@
 package com.eduardogreff.workshopmongo.controllers;
 
 import com.eduardogreff.workshopmongo.dto.UserDTO;
+import com.eduardogreff.workshopmongo.entities.User;
 import com.eduardogreff.workshopmongo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
 
@@ -27,5 +26,11 @@ public class UserController {
     @GetMapping(value = "/{id}")
     public ResponseEntity<UserDTO> findById(@PathVariable String id) {
         return ResponseEntity.ok().body(new UserDTO(service.findById(id)));
+    }
+
+    @PostMapping
+    public ResponseEntity<Void> insert(@RequestBody UserDTO userDTO) {
+        User user = service.insert(UserDTO.fromDTO(userDTO));
+        return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri()).build() ;
     }
 }

@@ -4,12 +4,29 @@ import com.eduardogreff.workshopmongo.entities.User;
 
 public class UserDTO {
 
+    private String id;
     private String name;
     private String email;
 
+    public UserDTO() {
+    }
+
     public UserDTO(User user) {
+        id = user.getId();
         name = user.getName();
         email = user.getEmail();
+    }
+
+    public static  User fromDTO(UserDTO dto) {
+        return new User(dto.getId(), dto.getName(), dto.getEmail());
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
