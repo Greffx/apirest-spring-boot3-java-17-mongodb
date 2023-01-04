@@ -42,6 +42,10 @@ public class Instantiation {
 
         postRepository.saveAll(Arrays.asList(post1, post2));
 
+        user1.getPost().addAll(Arrays.asList(post1, post2));
+
+        userRepository.save(user1);
+
     }
 
 }
